@@ -1,6 +1,6 @@
 package com.example.projectcountries.base.adapter
 
-import android.view.ViewGroup
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<ItemType>: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -15,7 +15,7 @@ abstract class BaseAdapter<ItemType>: RecyclerView.Adapter<RecyclerView.ViewHold
         fun onClick(item: ItemType)
     }
 
-    fun addListOfItems(list: MutableList<ItemType>){
+    fun     addListOfItems(list: MutableList<ItemType>){
         mDataListInAdapter.addAll(list)
         notifyDataSetChanged()
     }
@@ -27,6 +27,7 @@ abstract class BaseAdapter<ItemType>: RecyclerView.Adapter<RecyclerView.ViewHold
     fun addItem(item: ItemType){
         mDataListInAdapter.add(item)
         notifyItemChanged(mDataListInAdapter.size - 1)
+        Log.e("ADAPTER", "mDataList in adapter size = ${mDataListInAdapter.size}")
     }
 
 }
