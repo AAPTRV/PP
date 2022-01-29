@@ -1,5 +1,6 @@
 package com.example.projectcountries.screens.fragmentWithRV
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectcountries.R
 import com.example.projectcountries.databinding.FragmentWithRVBinding
+import com.example.projectcountries.dto.convertToDto
+import com.example.projectcountries.model.CountryModelV2
+import com.example.projectcountries.network.Retrofit
+import retrofit2.Call
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,9 +57,7 @@ class FragmentWithRW : Fragment() {
         binding?.mainRecyclerView?.layoutManager = LinearLayoutManager(context)
         binding?.mainRecyclerView?.setHasFixedSize(true)
         binding?.mainRecyclerView?.adapter = mCountryAdapter
-        mCountryAdapter.addItem("hello")
-        mCountryAdapter.addItem("Second country")
-        mCountryAdapter.addItem("Third country")
+        getDataFromRetrofit()
 
     }
 
@@ -67,6 +71,23 @@ class FragmentWithRW : Fragment() {
         (0..50).forEach { i -> data.add("Country #$i ...") }
         Log.e("LOG", "Data size is ${data.size}")
         return data
+    }
+
+    private fun getDataFromRetrofit(){
+        Retrofit.mRetrofitService.getPostsV2().enqueue(object : retrofit2.Callback<List<CountryModelV2>?> {
+            override fun onFailure(call: Call<List<CountryModelV2>?>, t: Throwable) {
+                Log.d(ContentValues.TAG, "On Failure: " + t.message)
+            }
+
+            override fun onResponse(
+                call: Call<List<CountryModelV2>?>,
+                response: Response<List<CountryModelV2>?>
+            ) {
+                val responseBody = response.body() ?: emptyList()
+                mCountryAdapter.addListOfItems(responseBody.convertToDto().toMutableList())
+
+            }
+        })
     }
 
     companion object {

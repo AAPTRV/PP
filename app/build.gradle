@@ -34,6 +34,11 @@ android {
 }
 
 def nav_version = "2.4.0"
+def comSquareUpOkHTTP3Version = '3.12.1'
+def comSquareUpOkHTTP3fInterceptorVersion = '3.12.1'
+def comSquareUpRetrofit2Version = '2.4.0'
+def comSquareUpRetrofit2ConverterGSONVersion = '2.4.0'
+
 
 dependencies {
 
@@ -49,6 +54,12 @@ dependencies {
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //Network
+    implementation 'com.squareup.okhttp3:okhttp:' + comSquareUpOkHTTP3Version
+    implementation 'com.squareup.okhttp3:logging-interceptor:' + comSquareUpOkHTTP3fInterceptorVersion
+    implementation 'com.squareup.retrofit2:retrofit:' + comSquareUpRetrofit2Version
+    implementation 'com.squareup.retrofit2:converter-gson:' + comSquareUpRetrofit2ConverterGSONVersion
 
     //Feature module Support
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"

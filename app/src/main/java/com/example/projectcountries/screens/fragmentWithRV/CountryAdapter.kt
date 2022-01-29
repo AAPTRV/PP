@@ -7,8 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectcountries.R
 import com.example.projectcountries.base.adapter.BaseAdapter
+import com.example.projectcountries.dto.CountryDto
 
-class CountryAdapter  : BaseAdapter<String>(){
+class CountryAdapter  : BaseAdapter<CountryDto>(){
 
     inner class CountriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var mCountryName = itemView.findViewById<TextView>(R.id.mainText)
@@ -22,7 +23,7 @@ class CountryAdapter  : BaseAdapter<String>(){
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is CountriesViewHolder){
             val item = mDataListInAdapter[position]
-            holder.mCountryName.text = item
+            holder.mCountryName.text = item.name
         }
     }
 }
