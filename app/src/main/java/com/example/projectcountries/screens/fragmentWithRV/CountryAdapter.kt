@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectcountries.R
 import com.example.projectcountries.base.adapter.BaseAdapter
 import com.example.projectcountries.dto.CountryDto
+import com.example.projectcountries.dto.convertToString
 
 class CountryAdapter  : BaseAdapter<CountryDto>(){
 
     inner class CountriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        var mCountryName = itemView.findViewById<TextView>(R.id.mainText)
+        var mCountryName = itemView.findViewById<TextView>(R.id.countryName)
+        var mLanguageName = itemView.findViewById<TextView>(R.id.languageName)
+        var mPopulation = itemView.findViewById<TextView>(R.id.population)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -24,6 +27,8 @@ class CountryAdapter  : BaseAdapter<CountryDto>(){
         if(holder is CountriesViewHolder){
             val item = mDataListInAdapter[position]
             holder.mCountryName.text = item.name
+            holder.mLanguageName.text = item.languages.convertToString()
+            holder.mPopulation.text = item.population.toString()
         }
     }
 }

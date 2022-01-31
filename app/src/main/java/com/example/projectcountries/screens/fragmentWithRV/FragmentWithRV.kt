@@ -66,13 +66,6 @@ class FragmentWithRW : Fragment() {
         super.onDestroy()
     }
 
-    private fun fillListForExample(): List<String>{
-        val data = mutableListOf<String>()
-        (0..50).forEach { i -> data.add("Country #$i ...") }
-        Log.e("LOG", "Data size is ${data.size}")
-        return data
-    }
-
     private fun getDataFromRetrofit(){
         Retrofit.mRetrofitService.getPostsV2().enqueue(object : retrofit2.Callback<List<CountryModelV2>?> {
             override fun onFailure(call: Call<List<CountryModelV2>?>, t: Throwable) {
