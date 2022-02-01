@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 
 @Database(
     entities = [CountryEntity::class],
     version = DBInfo.LATEST_VERSION
 )
+@TypeConverters(LatLngConverter::class)
 
 abstract class DBInfo: RoomDatabase() {
 
@@ -17,7 +19,7 @@ abstract class DBInfo: RoomDatabase() {
 
     companion object{
 
-        const val LATEST_VERSION = 3
+        const val LATEST_VERSION = 4
 
         fun init(context: Context) =
             Room.databaseBuilder(context, DBInfo::class.java, "DB")

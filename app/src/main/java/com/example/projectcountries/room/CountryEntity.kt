@@ -20,9 +20,9 @@ class CountryEntity (
     @ColumnInfo
     val population: Int,
 
-//    @ColumnInfo
-//    @TypeConverters(LatLngConverter::class)
-//    val latlng: List<Float>,
+    @ColumnInfo(name = "latlng")
+    @TypeConverters(LatLngConverter::class)
+    val latlng: List<Float>
 //
 //    @ColumnInfo
 //    @TypeConverters(LanguagesV2Converter::class)
@@ -33,8 +33,8 @@ fun CountryDto.convertToEntity(): CountryEntity{
     return CountryEntity(
         this.name,
         this.capital,
-        this.population
-//        this.latlng,
+        this.population,
+        this.latlng
 //        this.languages
     )
 }
