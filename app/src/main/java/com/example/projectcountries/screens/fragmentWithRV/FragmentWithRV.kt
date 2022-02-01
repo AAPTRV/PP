@@ -13,6 +13,9 @@ import com.example.projectcountries.databinding.FragmentWithRVBinding
 import com.example.projectcountries.dto.convertToDto
 import com.example.projectcountries.model.CountryModelV2
 import com.example.projectcountries.network.Retrofit
+import com.example.projectcountries.room.CountryInfoDAO
+import com.example.projectcountries.room.DBInfo
+import com.example.projectcountries.room.convertToEntity
 import retrofit2.Call
 import retrofit2.Response
 
@@ -30,10 +33,9 @@ class FragmentWithRW : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
     private var binding: FragmentWithRVBinding? = null
     private var mCountryAdapter: CountryAdapter = CountryAdapter()
-
+    private var mDatabase: DBInfo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,8 +59,11 @@ class FragmentWithRW : Fragment() {
         binding?.mainRecyclerView?.layoutManager = LinearLayoutManager(context)
         binding?.mainRecyclerView?.setHasFixedSize(true)
         binding?.mainRecyclerView?.adapter = mCountryAdapter
-        getDataFromRetrofit()
-
+        mDatabase = context?.let{ DBInfo.init(it)}
+        val mDaoCountryInfo = mDatabase?.getCountryInfoDao()
+        mDaoCountryInfo?.let {
+            getDataFromRetrofit(it)
+        }
     }
 
     override fun onDestroy() {
@@ -66,7 +71,7 @@ class FragmentWithRW : Fragment() {
         super.onDestroy()
     }
 
-    private fun getDataFromRetrofit(){
+    private fun getDataFromRetrofit(countryDao: CountryInfoDAO){
         Retrofit.mRetrofitService.getPostsV2().enqueue(object : retrofit2.Callback<List<CountryModelV2>?> {
             override fun onFailure(call: Call<List<CountryModelV2>?>, t: Throwable) {
                 Log.d(ContentValues.TAG, "On Failure: " + t.message)
@@ -79,8 +84,17 @@ class FragmentWithRW : Fragment() {
                 val responseBody = response.body() ?: emptyList()
                 mCountryAdapter.addListOfItems(responseBody.convertToDto().toMutableList())
 
+                val mCountriesInfoFromAPI = responseBody.convertToDto().toMutableList()
+                mCountriesInfoFromAPI.slice(1..20).forEach { countryDtoItem ->
+                    mCountriesInfoFromAPI.add(countryDtoItem)
+                }
+                countryDao.addAll(mCountriesInfoFromAPI.convertToEntity())
             }
         })
+    }
+
+    private fun insertDataInDB(){
+
     }
 
     companion object {

@@ -27,7 +27,7 @@ class CountryAdapter  : BaseAdapter<CountryDto>(){
         if(holder is CountriesViewHolder){
             val item = mDataListInAdapter[position]
             holder.mCountryName.text = item.name
-            holder.mLanguageName.text = item.languages.convertToString()
+//            holder.mLanguageName.text = item.languages.convertToString()
             holder.mPopulation.text = item.population.toString()
         }
     }

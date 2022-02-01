@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -39,6 +40,11 @@ def comSquareUpOkHTTP3fInterceptorVersion = '3.12.1'
 def comSquareUpRetrofit2Version = '2.4.0'
 def comSquareUpRetrofit2ConverterGSONVersion = '2.4.0'
 
+def androidRoomRuntimeVersion = '2.3.0'
+def androidRoomKtxVersion = '2.3.0'
+def androidRoomTestingVersion = '2.3.0'
+def androidRoomCompilerVersion = '2.3.0'
+
 
 dependencies {
 
@@ -74,5 +80,11 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     // For control over item selection of both touch and mouse driven selection
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+
+    // Room components
+    implementation "androidx.room:room-runtime:" + androidRoomRuntimeVersion
+    implementation "androidx.room:room-ktx:" + androidRoomKtxVersion
+    androidTestImplementation "androidx.room:room-testing:" + androidRoomTestingVersion
+    kapt 'androidx.room:room-compiler:' + androidRoomCompilerVersion
 
 }
