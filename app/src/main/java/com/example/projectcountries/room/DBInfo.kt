@@ -11,15 +11,14 @@ import androidx.room.TypeConverters
     entities = [CountryEntity::class],
     version = DBInfo.LATEST_VERSION
 )
-@TypeConverters(LatLngConverter::class)
-
+@TypeConverters(LanguagesV2Converter::class, LatLngConverter::class)
 abstract class DBInfo: RoomDatabase() {
 
     abstract fun getCountryInfoDao(): CountryInfoDAO
 
     companion object{
 
-        const val LATEST_VERSION = 4
+        const val LATEST_VERSION = 5
 
         fun init(context: Context) =
             Room.databaseBuilder(context, DBInfo::class.java, "DB")
