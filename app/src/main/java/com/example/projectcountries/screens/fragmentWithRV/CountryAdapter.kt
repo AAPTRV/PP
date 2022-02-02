@@ -25,7 +25,6 @@ class CountryAdapter  : BaseAdapter<CountryDto>(){
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is CountriesViewHolder){
-            val item = mDataListInAdapter[position]
             holder.mCountryName.text = holder.itemView.context.getString(
                 R.string.adapter_countries_name, mDataListInAdapter[position].name
             )
