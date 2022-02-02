@@ -1,8 +1,7 @@
-package com.example.projectcountries.room
+package com.example.projectcountries.room.converters
 
 import androidx.room.TypeConverter
-import com.example.projectcountries.dto.LanguageV2Dto
-import com.example.projectcountries.model.LanguageV2
+import com.example.projectcountries.dto.LanguageDto
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -12,16 +11,16 @@ class LanguagesV2Converter {
 
         @TypeConverter
         @JvmStatic
-        fun fromLanguages(languages: List<LanguageV2Dto>): String {
+        fun fromLanguages(languages: List<LanguageDto>): String {
             val result = Gson()
             return result.toJson(languages)
         }
 
         @TypeConverter
         @JvmStatic
-        fun toLanguages(src: String): List<LanguageV2Dto> {
+        fun toLanguages(src: String): List<LanguageDto> {
             val result = Gson()
-            val turnsType = object : TypeToken<List<LanguageV2>>() {}.type
+            val turnsType = object : TypeToken<List<LanguageDto>>() {}.type
             return result.fromJson(src, turnsType)
 
         }

@@ -4,8 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.projectcountries.dto.CountryDto
-import com.example.projectcountries.dto.LanguageV2Dto
+import com.example.projectcountries.dto.LanguageDto
+import com.example.projectcountries.room.converters.LanguagesV2Converter
+import com.example.projectcountries.room.converters.LatLngConverter
 
 
 @Entity(tableName = "countries_data_base_table_info")
@@ -26,23 +27,8 @@ class CountryEntity (
 
     @ColumnInfo (name = "languages")
     @TypeConverters(LanguagesV2Converter::class)
-    val languages: List<LanguageV2Dto>
+    val languages: List<LanguageDto>
         )
 
-fun CountryDto.convertToEntity(): CountryEntity{
-    return CountryEntity(
-        this.name,
-        this.capital,
-        this.population,
-        this.latlng,
-        this.languages
-    )
-}
 
-fun List<CountryDto>.convertToEntity(): List<CountryEntity>{
-    val result = mutableListOf<CountryEntity>()
-    for (dto in this){
-        result.add(dto.convertToEntity())
-    }
-    return result
-}
+

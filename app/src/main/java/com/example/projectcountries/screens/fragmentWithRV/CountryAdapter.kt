@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectcountries.R
 import com.example.projectcountries.base.adapter.BaseAdapter
 import com.example.projectcountries.dto.CountryDto
-import com.example.projectcountries.dto.convertToString
+import com.example.projectcountries.transformer.LanguageV2DtoTransformer.convertToString
 
 class CountryAdapter  : BaseAdapter<CountryDto>(){
 
@@ -27,7 +27,7 @@ class CountryAdapter  : BaseAdapter<CountryDto>(){
         if(holder is CountriesViewHolder){
             val item = mDataListInAdapter[position]
             holder.mCountryName.text = item.name
-//            holder.mLanguageName.text = item.languages.convertToString()
+            holder.mLanguageName.text = item.languages.convertToString()
             holder.mPopulation.text = item.population.toString()
         }
     }

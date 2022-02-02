@@ -30,4 +30,9 @@ abstract class BaseAdapter<ItemType>: RecyclerView.Adapter<RecyclerView.ViewHold
         Log.e("ADAPTER", "mDataList in adapter size = ${mDataListInAdapter.size}")
     }
 
+    fun clearDataInAdapter(){
+        mDataListInAdapter.clear()
+        notifyDataSetChanged()
+    }
+
 }
