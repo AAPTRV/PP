@@ -5,4 +5,9 @@
     <string name="to_rw_fragment">To RW FRAGMENT</string>
     <string name="start_activity">Start activity</string>
     <string name="hello_this_is_start_fragment">Hello! This is start fragment</string>
+
+    //COUNTRIES ADAPTER
+    <string name="adapter_countries_name">Name: %1$s</string>
+    <string name="adapter_countries_languages">Languages: %1$s</string>
+    <string name="adapter_countries_population">Population: %1$d</string>
 </resources>
