@@ -7,13 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.projectcountries.R
 import com.example.projectcountries.databinding.FragmentWithRVBinding
 import com.example.projectcountries.model.CountryModel
 import com.example.projectcountries.network.Retrofit
 import com.example.projectcountries.room.CountryInfoDAO
 import com.example.projectcountries.room.DBInfo
-import com.example.projectcountries.transformer.CountryDtoTransformer.convertToEntity
 import com.example.projectcountries.transformer.CountryEntityTransformer.convertToDto
 import com.example.projectcountries.transformer.CountryModelV2Transformer.convertToDto
 import com.example.projectcountries.transformer.CountryModelV2Transformer.convertToEntity
@@ -42,6 +43,18 @@ class FragmentWithRW : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //ToolBar init
+        binding?.appBar?.inflateMenu(R.menu.top_app_bar)
+        binding?.appBar?.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.app_bar_search -> {
+                    Toast.makeText(this.requireContext(), "OPTIONS TAPPED", Toast.LENGTH_LONG).show()
+                    true
+                }
+                else -> { false }
+            }
+        }
 
         //RV init
         binding?.mainRecyclerView?.layoutManager = LinearLayoutManager(context)

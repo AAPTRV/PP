@@ -9,7 +9,18 @@
     tools:context=".screens.startFragment.StartFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/mainImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/startFragmentButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/countries"/>
     <TextView
+        android:id="@+id/mainTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_this_is_start_fragment" />

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.example.projectcountries.R
 import com.example.projectcountries.databinding.FragmentStartBinding
 
@@ -21,18 +22,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class StartFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private var binding: FragmentStartBinding? = null
+    private val mImageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/320px-Flag_of_the_Taliban.svg.png"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -50,6 +45,12 @@ class StartFragment : Fragment() {
             Toast.makeText(this.requireContext(), "BUTTON TAPPED", Toast.LENGTH_LONG).show()
             Navigation.findNavController(view).navigate(R.id.action_startFragment_to_fragmentWithRV)
         }
+        binding?.mainImageView?.let {
+            Glide.with(this.requireActivity())
+                .load(mImageURL)
+                .into(it)
+        }
+
     }
 
     override fun onDestroyView() {
@@ -57,23 +58,4 @@ class StartFragment : Fragment() {
         super.onDestroyView()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StartFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StartFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
