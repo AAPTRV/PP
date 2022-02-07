@@ -16,33 +16,19 @@ import com.example.projectcountries.room.DBInfo
 import com.example.projectcountries.transformer.CountryDtoTransformer.convertToEntity
 import com.example.projectcountries.transformer.CountryEntityTransformer.convertToDto
 import com.example.projectcountries.transformer.CountryModelV2Transformer.convertToDto
+import com.example.projectcountries.transformer.CountryModelV2Transformer.convertToEntity
 import retrofit2.Call
 import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentWithRW.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentWithRW : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
     private var binding: FragmentWithRVBinding? = null
     private var mCountryAdapter: CountryAdapter = CountryAdapter()
     private var mDatabase: DBInfo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -56,15 +42,17 @@ class FragmentWithRW : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //RV init
         binding?.mainRecyclerView?.layoutManager = LinearLayoutManager(context)
         binding?.mainRecyclerView?.setHasFixedSize(true)
         binding?.mainRecyclerView?.adapter = mCountryAdapter
+
+        //DB init
         mDatabase = context?.let{ DBInfo.init(it)}
         val mDaoCountryInfo = mDatabase?.getCountryInfoDao()
-//        mDaoCountryInfo?.let {
-//            getDataFromRetrofit(it)
-//        }
         mDaoCountryInfo?.let {
+            getDataFromRetrofit(it)
             getDataFromDB(it)
         }
     }
@@ -84,15 +72,10 @@ class FragmentWithRW : Fragment() {
                 call: Call<List<CountryModel>?>,
                 response: Response<List<CountryModel>?>
             ) {
-                val responseBody = response.body() ?: emptyList()
-                mCountryAdapter.clearDataInAdapter()
-                mCountryAdapter.addListOfItems(responseBody.convertToDto().toMutableList())
-
-                val mCountriesInfoFromAPI = responseBody.convertToDto().toMutableList()
-                mCountriesInfoFromAPI.slice(1..20).forEach { countryDtoItem ->
-                    mCountriesInfoFromAPI.add(countryDtoItem)
+                response.body()?.let {
+                    mCountryAdapter.addListOfItems(it.convertToDto())
+                    countryDao.addAll(it.slice(0..20).convertToEntity())
                 }
-                countryDao.addAll(mCountriesInfoFromAPI.convertToEntity())
             }
         })
     }
@@ -100,17 +83,5 @@ class FragmentWithRW : Fragment() {
     private fun getDataFromDB(countryDao: CountryInfoDAO){
         mCountryAdapter.addListOfItems(countryDao.getAllInfo().convertToDto().toMutableList())
 
-    }
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentWithRW().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

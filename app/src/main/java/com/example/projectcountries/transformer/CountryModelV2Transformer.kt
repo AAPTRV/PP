@@ -40,7 +40,7 @@ object CountryModelV2Transformer {
         )
     }
 
-    fun List<CountryModel>.convertToDto(): List<CountryDto> {
+    fun List<CountryModel>.convertToDto(): MutableList<CountryDto> {
         val result = mutableListOf<CountryDto>()
         for (model in this) {
             result.add(model.convertToDto())
@@ -51,7 +51,7 @@ object CountryModelV2Transformer {
     fun CountryModel.convertToEntity(): CountryEntity{
         var name = "No Name"
         var capital = "No capital"
-        var population: Int = 0
+        var population = 0
         val latlng = mutableListOf<Float>()
         val languages = mutableListOf<LanguageDto>()
 

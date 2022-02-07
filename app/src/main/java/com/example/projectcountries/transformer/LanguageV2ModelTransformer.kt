@@ -25,7 +25,7 @@ object LanguageV2ModelTransformer {
             return LanguageDto(iso639_1, iso639_2, name, nativeName)
         }
 
-        fun List<LanguageModel>.convertToDto(): List<LanguageDto>{
+        fun List<LanguageModel>.convertToDto(): MutableList<LanguageDto>{
             val result = mutableListOf<LanguageDto>()
             for(language in this){
                 result.add(language.convertToDto())

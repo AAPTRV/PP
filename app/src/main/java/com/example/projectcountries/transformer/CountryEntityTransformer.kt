@@ -15,7 +15,7 @@ object CountryEntityTransformer {
         )
     }
 
-    fun List<CountryEntity>.convertToDto(): List<CountryDto>{
+    fun List<CountryEntity>.convertToDto(): MutableList<CountryDto>{
         val result = mutableListOf<CountryDto>()
         for(entity in this){
             result.add(entity.convertToDto())
