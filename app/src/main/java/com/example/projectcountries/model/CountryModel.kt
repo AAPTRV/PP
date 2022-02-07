@@ -5,5 +5,6 @@ data class CountryModel (
     val capital: String?,
     val population: Int?,
     val latlng: List<Float>?,
-    val languages: List<LanguageModel>?
+    val languages: List<LanguageModel>?,
+    val flags: Map<String, String>?
         )

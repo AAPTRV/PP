@@ -9,11 +9,14 @@ import com.example.projectcountries.transformer.LanguageV2ModelTransformer.conve
 object CountryModelV2Transformer {
 
     fun CountryModel.convertToDto(): CountryDto {
+
         var name = "No Name"
         var capital = "No capital"
         var population: Int = 0
         val latlng = mutableListOf<Float>()
         val languages = mutableListOf<LanguageDto>()
+        var flag = "No flag"
+
         this.name?.let {
             name = it
         }
@@ -31,12 +34,18 @@ object CountryModelV2Transformer {
         this.languages?.let {
             languages.addAll(it.convertToDto())
         }
+        this.flags?.let { flagModel ->
+            flagModel["svg"]?.let {
+                flag = it
+            }
+        }
         return CountryDto(
             name,
             capital,
             population,
             latlng,
-            languages
+            languages,
+            flag
         )
     }
 
@@ -48,12 +57,13 @@ object CountryModelV2Transformer {
         return result
     }
 
-    fun CountryModel.convertToEntity(): CountryEntity{
+    fun CountryModel.convertToEntity(): CountryEntity {
         var name = "No Name"
         var capital = "No capital"
         var population = 0
         val latlng = mutableListOf<Float>()
         val languages = mutableListOf<LanguageDto>()
+        var flag = "no flag"
 
         this.name?.let {
             name = it
@@ -72,18 +82,26 @@ object CountryModelV2Transformer {
         this.languages?.let {
             languages.addAll(it.convertToDto())
         }
+
+        this.flags?.let { flagModel ->
+            flagModel["svg"]?.let {
+                flag = it
+            }
+        }
+
         return CountryEntity(
             name,
             capital,
             population,
             latlng,
-            languages
+            languages,
+            flag
         )
     }
 
-    fun List<CountryModel>.convertToEntity(): List<CountryEntity>{
+    fun List<CountryModel>.convertToEntity(): List<CountryEntity> {
         val result = mutableListOf<CountryEntity>()
-        for (model in this){
+        for (model in this) {
             result.add(model.convertToEntity())
         }
         return result

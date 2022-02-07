@@ -5,7 +5,8 @@ data class CountryDto (
     val capital: String,
     val population: Int,
     val latlng: List<Float>,
-    val languages: List<LanguageDto>
+    val languages: List<LanguageDto>,
+    val flag: String
         )
 
 

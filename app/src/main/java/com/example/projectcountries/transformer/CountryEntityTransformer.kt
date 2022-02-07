@@ -11,7 +11,8 @@ object CountryEntityTransformer {
             this.capital,
             this.population,
             this.latlng,
-            this.languages
+            this.languages,
+            this.flag
         )
     }
 

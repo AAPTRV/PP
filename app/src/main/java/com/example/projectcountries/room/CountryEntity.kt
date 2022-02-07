@@ -27,7 +27,10 @@ class CountryEntity (
 
     @ColumnInfo (name = "languages")
     @TypeConverters(LanguagesV2Converter::class)
-    val languages: List<LanguageDto>
+    val languages: List<LanguageDto>,
+
+    @ColumnInfo
+    val flag: String
         )
 
 

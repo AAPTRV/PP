@@ -11,7 +11,8 @@ object CountryDtoTransformer{
             this.capital,
             this.population,
             this.latlng,
-            this.languages
+            this.languages,
+            this.flag
         )
     }
 
@@ -22,6 +23,5 @@ object CountryDtoTransformer{
         }
         return result
     }
-
 
 }
